@@ -54,6 +54,7 @@ export default function ChatList({ onChatChange, userId }) {
         item.users.forEach(el => {
             mapUsers.set(el.id, el);
         });
+        console.log(item);
         const users = {
             get: (id) => {
                 return mapUsers.get(id).username;

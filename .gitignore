@@ -16,3 +16,6 @@ Cargo.lock
 upload*
 
 .env
+
+/static
+*/out

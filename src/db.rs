@@ -40,13 +40,15 @@ pub fn find_user_by_uid(
 
 pub fn get_convo_by_room_uid(
     conn: &mut PgConnection,
-    room_id: String,
-) -> Result<Option<Convo>, DbError> {
+    room: String,
+) -> Result<Vec<Convo>, DbError> {
     use crate::schema::convos::dsl::*;
     let convo = convos
-        .filter(room_id.eq(room_id))
-        .first::<Convo>(conn)
-        .optional()?;
+        .filter(room_id.eq(room))
+        .select(Convo::as_select())
+        .load(conn)
+        .expect("Error loading convo");
+    dbg!(&convo);
     Ok(convo)
 }
 

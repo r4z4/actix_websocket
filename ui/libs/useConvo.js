@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 const fetchRoomData = async (room_id) => {
+    console.log(`rID=${room_id}`);
     if (!room_id) return;
     const url = `http://localhost:8080/convos/${room_id}`;
     try {

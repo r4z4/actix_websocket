@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from "react";
 import Avatar from "./avatar"
 function ConvoItem({ right, content, username }) {
+    console.log(content);
     if (right) {
         return (
             <div className='w-full flex justify-end'>
@@ -27,6 +28,8 @@ function ConvoItem({ right, content, username }) {
     )
 }
 export default function Convo({ data, auth, users }) {
+    console.log(data);
+    console.log("Convo");
     const ref = useRef(null);
     useEffect(() => {
         ref.current?.scrollTo(0, ref.current.scrollHeight)
@@ -34,13 +37,15 @@ export default function Convo({ data, auth, users }) {
     return (
         <div className='p-4 space-y-4 overflow-auto' ref={ref}>
             {
-                data.map(item => {
-                    return <ConvoItem
-                        right={item.user_id === auth.id}
-                        content={item.content}
-                        username={users.get(item.user_id)}
-                        key={item.id} />
-                })
+                data && (
+                    data.map(item => {
+                        return <ConvoItem
+                            right={item.user_id === auth.id}
+                            content={item.content}
+                            username={users.get(item.user_id)}
+                            key={item.id} />
+                    })
+                )
             }
         </div>
     )

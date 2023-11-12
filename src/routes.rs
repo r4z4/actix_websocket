@@ -84,6 +84,7 @@ pub async fn get_convo_by_id(
     pool: web::Data<DbPool>,
     uid: web::Path<Uuid>,
 ) -> Result<HttpResponse, Error> {
+    dbg!(&uid);
     let room_id = uid.to_owned();
     let convos = web::block(move || {
         let mut conn = pool.get()?;
@@ -91,8 +92,8 @@ pub async fn get_convo_by_id(
     })
     .await?
     .map_err(actix_web::error::ErrorInternalServerError)?;
-    if let Some(data) = convos {
-        Ok(HttpResponse::Ok().json(data))
+    if convos.len() > 0  {
+        Ok(HttpResponse::Ok().json(convos))
     } else {
         let res = HttpResponse::NotFound().body(
             json!({

@@ -1,4 +1,4 @@
-use diesel::{Queryable, prelude::Insertable};
+use diesel::{Queryable, prelude::Insertable, Selectable};
 use serde::{Deserialize, Serialize};
 use crate::schema::*;
 #[derive(Debug, Clone, Serialize, Deserialize, Queryable, Insertable)]
@@ -8,7 +8,7 @@ pub struct User {
     pub phone: String,
     pub created_at: String
 }
-#[derive(Debug, Clone, PartialEq, Serialize, Deserialize, Queryable, Insertable)]
+#[derive(Debug, Clone, PartialEq, Serialize, Selectable, Deserialize, Queryable, Insertable)]
 pub struct Convo {
     pub id: String,
     pub room_id: String,
