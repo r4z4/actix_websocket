@@ -14,6 +14,7 @@ export default function useLocalStorage(key, defaultValue) {
   useEffect(() => {
     try {
       const item = window.localStorage.getItem(key);
+      console.log(`auth item-${item}`);
       let data = item ? JSON.parse(item) : defaultValue;
       setStoredValue(data)
     } catch (error) {}

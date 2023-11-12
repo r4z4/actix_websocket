@@ -27,6 +27,11 @@ function ConvoItem({ right, content, username }) {
         </div>
     )
 }
+/**
+ *  Returns an HTML list of Convos
+ *  @param {Convo} _ Convo object arg
+ *  @returns {HTMLElement} HTML.
+ */
 export default function Convo({ data, auth, users }) {
     console.log(data);
     console.log("Convo");
