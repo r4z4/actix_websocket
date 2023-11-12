@@ -1,3 +1,5 @@
+use std::env;
+use dotenv::dotenv;
 use actix::*;
 use actix_cors::Cors;
 use actix_files::Files;
@@ -14,8 +16,14 @@ mod server;
 mod session;
 #[actix_web::main]
 async fn main() -> std::io::Result<()> {
+    if std::env::var_os("RUST_LOG").is_none() {
+        std::env::set_var("RUST_LOG", "actix_web=info");
+    }
+    env_logger::init();
+    dotenv().ok();
     let server = server::ChatServer::new().start();
-    let conn_spec = "chat.db";
+    // let conn_spec = "postgresql://postgres:postgres@db:5432/chat_app?sslmode=disable";
+    let conn_spec = env::var("DATABASE_URL").unwrap_or("NoURL".to_string());
     let manager = ConnectionManager::<PgConnection>::new(conn_spec);
     let pool = r2d2::Pool::builder().build(manager).expect("Failed to create pool.");
     let server_addr = "127.0.0.1";
